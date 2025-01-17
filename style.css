@@ -1,0 +1,142 @@
+body {
+    background-color: lightblue;
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    color: darkblue;
+}
+
+/* Réinitialisation des marges et paddings */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    padding: 2rem;
+}
+
+.bike-link {
+    text-decoration: none;
+}
+
+.card {
+    width: 280px;
+    height: 400px;
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    perspective: 1000px;
+    transition: transform 0.5s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 25px rgba(0, 0, 0, 0.15);
+}
+
+.front, .back {
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff;
+    position: absolute;
+    backface-visibility: hidden;
+    border-radius: 15px;
+}
+
+.front {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 1rem;
+}
+
+.front img {
+    width: 100%;
+    height: 60%;
+    object-fit: cover;
+    border-radius: 15px 15px 0 0;
+}
+
+.front h1 {
+    margin-top: 1rem;
+    font-size: 1.5rem;
+    color: #4A90E2;
+    font-weight: bold;
+}
+
+.back {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 1.5rem;
+    background-color: #4A90E2;
+    color: #ffffff;
+    transform: rotateY(180deg);
+}
+
+.back h1 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: #fff;
+}
+
+.back ul {
+    list-style: none;
+}
+
+.back ul li {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+}
+
+.back ul li strong {
+    font-weight: bold;
+}
+
+.back ul li::before {
+    content: "✔";
+    color: #ffffff;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.card:hover .front {
+    transform: rotateY(180deg);
+}
+
+.card:hover .back {
+    transform: rotateY(0);
+}
+
+.card .front, 
+.card .back {
+    transition: transform 0.5s ease;
+}
+
+@media (max-width: 768px) {
+    .card-container {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .card {
+        width: 90%;
+    }
+}
