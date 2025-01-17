@@ -65,6 +65,5 @@ const loadData = (heroes) => {
   // Insérer le tableau dans la page
   document.getElementById("searchBar").innerHTML = searchBar
   document.getElementById("allHeroes").innerHTML = heroesTable;
-  document.getElementById("map").innerHTML = heroesRows;
 };
 
