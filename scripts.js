@@ -37,18 +37,18 @@ class HeroTable {
         /[;]/g,
         ", "
       );
-      
-      for (let weight of hero.appearance.weight){
-        if(weight.split(" ")[0]=== "-"){
-          hero.appearance.weight[0]= "-";
-          hero.appearance.weight[1]= "-";
+
+      for (let weight of hero.appearance.weight) {
+        if (weight.split(" ")[0] === "-") {
+          hero.appearance.weight[0] = "-";
+          hero.appearance.weight[1] = "-";
         }
       }
 
-      for (let height of hero.appearance.height){
-        if(height[0]=== "-"){
-          hero.appearance.height[0]= "-";
-          hero.appearance.height[1]= "-";
+      for (let height of hero.appearance.height) {
+        if (height[0] === "-") {
+          hero.appearance.height[0] = "-";
+          hero.appearance.height[1] = "-";
         }
       }
     });
@@ -127,32 +127,6 @@ class HeroTable {
     this.filteredData.sort((a, b) => {
       let valueA = this.getValueByColumn(a, column);
       let valueB = this.getValueByColumn(b, column);
-
-      // Gestion spécifique pour les poids
-      if (column === "weight") {
-        const numericValueA = this.extractNumericValue(valueA);
-        const numericValueB = this.extractNumericValue(valueB);
-
-        // Gérer les unités (kg avant tons)
-        const unitA = this.getUnit(valueA); // Obtenir l'unité (kg ou tons)
-        const unitB = this.getUnit(valueB);
-
-        // Priorité des unités : "kg" avant "tons"
-        if (unitA !== unitB) {
-          if (unitA === "kg")
-            return this.sortDirection === "asc" ? -1 : 1;
-          if (unitA === "tons")
-            return this.sortDirection === "asc" ? 1 : -1;
-        }
-
-        // Si les unités sont identiques, comparer les valeurs numériques
-        if (numericValueA < numericValueB)
-          return this.sortDirection === "asc" ? -1 : 1;
-        if (numericValueA > numericValueB)
-          return this.sortDirection === "asc" ? 1 : -1;
-        return 0;
-      }
-      // Considère les tirets comme des valeurs manquantes
       if (
         valueA === "" ||
         valueA == "-" ||
@@ -167,6 +141,29 @@ class HeroTable {
         valueB === undefined
       )
         return -1;
+      // Gestion spécifique pour les poids
+      if (column === "weight") {
+        const numericValueA = this.extractNumericValue(valueA);
+        const numericValueB = this.extractNumericValue(valueB);
+
+        // Gérer les unités (kg avant tons)
+        const unitA = this.getUnit(valueA); // Obtenir l'unité (kg ou tons)
+        const unitB = this.getUnit(valueB);
+
+        // Priorité des unités : "kg" avant "tons"
+        if (unitA !== unitB) {
+          if (unitA === "kg") return this.sortDirection === "asc" ? -1 : 1;
+          if (unitA === "tons") return this.sortDirection === "asc" ? 1 : -1;
+        }
+
+        // Si les unités sont identiques, comparer les valeurs numériques
+        if (numericValueA < numericValueB)
+          return this.sortDirection === "asc" ? -1 : 1;
+        if (numericValueA > numericValueB)
+          return this.sortDirection === "asc" ? 1 : -1;
+        return 0;
+      }
+
       // Tri standard pour les autres colonnes
       valueA = String(valueA).trim().toLowerCase();
       valueB = String(valueB).trim().toLowerCase();
