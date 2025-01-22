@@ -1,15 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sortable</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Superhero Database</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <ul id="searchBar"></ul>
-    <div id="allHeroes"></div> <!-- Liste des héros, affichée ici -->
-    <ul id ="map"></ul>
-    <script src="./scripts.js"></script>
+    <div class="controls" >
+        <div class="searchBar">
+            <input type="text" id="search" placeholder="Rechercher un héros...">
+        </div>
+        <a>Welcome to you Supervilain</a>
+        <select id="pageSize">
+            <option value="10">10</option>
+            <option value="20" selected>20</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+            <option value="all">Tout</option>
+        </select>
+    </div>
+
+    <table border="2"  text-align="center">
+        <thead>
+            <tr text-align="center">
+                <th data-column="icon" data-label="Icon">Icon</th>
+                <th data-column="name" data-label="Name">Name</th>
+                <th data-column="fullName" data-label="Full Name">Full Name</th>
+                <th data-column="powerstats" data-label="Powerstats">Powerstats</th>
+                <th data-column="race" data-label="Race">Race</th>
+                <th data-column="gender" data-label="Gender">Gender</th>
+                <th data-column="height" data-label="Height">Height</th>
+                <th data-column="weight" data-label="Weight">Weight</th>
+                <th data-column="placeOfBirth" data-label="Place of Birth">Place of Birth</th>
+                <th data-column="alignment" data-label="Alignment">Alignment</th>
+            </tr>
+        </thead>        
+        <tbody></tbody>
+    </table>
+
+    <div id="pagination" textalign="center"></div>
+    <div id="hero-details"></div>
+
+    <script src="script.js"></script>
 </body>
 </html>
