@@ -1,142 +1,139 @@
-body {
-    background-color: lightblue;
-    font-family: Arial, sans-serif;
-}
-
-h1 {
-    color: darkblue;
-}
-
-/* Réinitialisation des marges et paddings */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
+/* Général */
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #f9f9f9;
-    color: #333;
-}
-
-.card-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 2rem;
-    padding: 2rem;
-}
-
-.bike-link {
-    text-decoration: none;
-}
-
-.card {
-    width: 280px;
-    height: 400px;
-    background-color: #ffffff;
-    border-radius: 15px;
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    perspective: 1000px;
-    transition: transform 0.5s ease, box-shadow 0.3s ease;
-}
-
-.card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 25px rgba(0, 0, 0, 0.15);
-}
-
-.front, .back {
-    width: 100%;
-    height: 100%;
-    background-color: #ffffff;
-    position: absolute;
-    backface-visibility: hidden;
-    border-radius: 15px;
-}
-
-.front {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+  }
+  
+  h1 {
     text-align: center;
-    padding: 1rem;
-}
-
-.front img {
-    width: 100%;
-    height: 60%;
-    object-fit: cover;
-    border-radius: 15px 15px 0 0;
-}
-
-.front h1 {
-    margin-top: 1rem;
-    font-size: 1.5rem;
-    color: #4A90E2;
-    font-weight: bold;
-}
-
-.back {
+    color: #333;
+  }
+  
+  /* Conteneur principal */
+  .controls {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 1.5rem;
-    background-color: #4A90E2;
-    color: #ffffff;
-    transform: rotateY(180deg);
-}
-
-.back h1 {
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #333;
     color: #fff;
-}
+  }
+  
+  .searchBar input {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+  
+  #pageSize {
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  /* Tableau */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  th,
+  td {
+    padding: 15px;
+    text-align: center;
+    border: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #333;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  th:hover {
+    background-color: #444;
+  }
+  
+  td img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+  
+  /* Pagination */
+  #pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+  }
+  
+  #pagination button {
+    padding: 5px 10px;
+    margin: 0 5px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  #pagination button:disabled {
+    background-color: #bbb;
+  }
+  
+  #pagination span {
+    margin: 0 10px;
+    font-size: 14px;
+    color: #333;
+  }
+  
+  /* Détails du héros */
+  #hero-details {
+    margin: 20px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+  }
+  
+  #hero-details h2 {
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  #hero-details img {
+    max-width: 300px;
+    margin-bottom: 20px;
+  }
+  
+  #hero-details p {
+    font-size: 14px;
+    color: #555;
+  }
+  
+  #hero-details strong {
+    color: #333;
+  }
+  
 
-.back ul {
-    list-style: none;
-}
-
-.back ul li {
-    margin-bottom: 0.5rem;
-    font-size: 1rem;
-}
-
-.back ul li strong {
-    font-weight: bold;
-}
-
-.back ul li::before {
-    content: "✔";
-    color: #ffffff;
-    font-weight: bold;
-    margin-right: 10px;
-}
-
-.card:hover .front {
-    transform: rotateY(180deg);
-}
-
-.card:hover .back {
-    transform: rotateY(0);
-}
-
-.card .front, 
-.card .back {
-    transition: transform 0.5s ease;
-}
-
-@media (max-width: 768px) {
-    .card-container {
-        flex-direction: row;
-        align-items: center;
-    }
-
-    .card {
-        width: 90%;
-    }
-}
+  .hero-details {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background: #f9f9f9;
+  }
+  
+  .hero-details img {
+    max-width: 200px;
+    margin-bottom: 10px;
+  }
+  
