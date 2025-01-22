@@ -142,27 +142,26 @@ class HeroTable {
       )
         return -1;
       // Gestion spécifique pour les poids
-      if (column === "weight") {
+      if (["weight", "height"].includes(column)) {
+        const unitOrder = column === "weight" ? ["kg", "tons"] : ["cm", "meters"];
+        const unitA = this.getUnit(valueA);
+        const unitB = this.getUnit(valueB);
         const numericValueA = this.extractNumericValue(valueA);
         const numericValueB = this.extractNumericValue(valueB);
-
-        // Gérer les unités (kg avant tons)
-        const unitA = this.getUnit(valueA); // Obtenir l'unité (kg ou tons)
-        const unitB = this.getUnit(valueB);
-
-        // Priorité des unités : "kg" avant "tons"
+      
+        // Priorité des unités
         if (unitA !== unitB) {
-          if (unitA === "kg") return this.sortDirection === "asc" ? -1 : 1;
-          if (unitA === "tons") return this.sortDirection === "asc" ? 1 : -1;
+          return unitOrder.indexOf(unitA) < unitOrder.indexOf(unitB)
+            ? this.sortDirection === "asc" ? -1 : 1
+            : this.sortDirection === "asc" ? 1 : -1;
         }
-
-        // Si les unités sont identiques, comparer les valeurs numériques
-        if (numericValueA < numericValueB)
-          return this.sortDirection === "asc" ? -1 : 1;
-        if (numericValueA > numericValueB)
-          return this.sortDirection === "asc" ? 1 : -1;
-        return 0;
+      
+        // Comparer les valeurs numériques
+        return this.sortDirection === "asc"
+          ? numericValueA - numericValueB
+          : numericValueB - numericValueA;
       }
+      
 
       // Tri standard pour les autres colonnes
       valueA = String(valueA).trim().toLowerCase();
@@ -176,20 +175,22 @@ class HeroTable {
     this.render();
   }
   extractNumericValue(weight) {
+    console.log(weight,"hhhh")
     if (!weight || weight === "-") return 0; // Si le poids est manquant, retourne 0
     const match = weight.match(/\d+(\.\d+)?/); // Extrait le nombre
     return match ? parseFloat(match[0]) : 0; // Convertit en nombre
   }
 
   getUnit(value) {
-    if (!value || value === "-" || value === null || value === undefined)
-      return ""; // Aucune unité si le poids est manquant
-    if (value.toLowerCase().includes("tons")) return "tons";
-    if (value.toLowerCase().includes("kg")) return "kg";
-    if (value.toLowerCase().includes("cm")) return "cm";
-    if (value.toLowerCase().includes("meters")) return "meters";
-    return ""; // Par défaut, aucune unité
+    if (!value || value === "-" || value === null || value === undefined) return ""; // Aucun poids/hauteur
+    const lowerValue = String(value).toLowerCase();
+    if (lowerValue.includes("tons")) return "tons";
+    if (lowerValue.includes("kg")) return "kg";
+    if (lowerValue.includes("cm")) return "cm";
+    if (lowerValue.includes("meters")) return "meters";
+    return ""; // Unité inconnue
   }
+  
 
   // Fonction pour mettre à jour les icônes de tri dans les en-têtes de colonnes
   updateSortIcons(column) {
@@ -234,7 +235,7 @@ class HeroTable {
     const fieldValue = value(column);
     // Si la valeur est null ou undefined, on retourne une valeur spéciale.
     return fieldValue === null || fieldValue === undefined
-      ? Infinity
+      ? ""
       : fieldValue;
   }
 
