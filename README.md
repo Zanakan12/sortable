@@ -1,200 +1,111 @@
-# Superhero Table Project
+# Hero Table Project
 
-A vanilla JavaScript project to display and manipulate superhero data in a table format. This project focuses on implementing core functionality without using any external frameworks or libraries.
+## **Description**
+This project is a JavaScript-based web application that dynamically displays a table of hero data retrieved from an external API. The table includes features such as pagination, column sorting, and filtering to enhance interactivity and user experience.
 
-## Project Structure
+---
 
-```
-├── index.html
-├── styles.css
-└── scripts.js
-```
+## **Features**
+1. **Dynamic Data Retrieval**:
+   - Fetches hero data from the [OpenDota API](https://api.opendota.com/api/heroStats).
+   - Data includes hero names, primary attributes, attack types, and roles.
 
-## Implementation Steps
+2. **Interactive Table**:
+   - Displays data in a clear, structured table format.
+   - Supports real-time sorting of columns in ascending or descending order.
 
-### 1. Initial Setup
+3. **Pagination**:
+   - Divides data into manageable pages.
+   - Allows users to navigate through pages using dynamically generated buttons.
 
-- Create the base HTML structure with a table element
-- Add necessary input elements (search field, page size selector)
-- Set up basic CSS styling
-- Create JavaScript file with initial data fetching
+4. **Filtering (Optional)**:
+   - Allows users to search for specific heroes by name or attribute.
 
-### 2. Data Fetching and Processing
+---
 
+## **How It Works**
+
+### 1. **Initialization**
+The application is launched with the `init()` method, which:
+- Fetches data from the API using `fetchData()`.
+- Sets up event listeners for user interactions (e.g., sorting, pagination).
+- Renders the initial table view using `render()`.
+
+### 2. **Data Retrieval**
+Hero data is fetched asynchronously via the `fetchData()` method:
 ```javascript
-fetch("https://rawcdn.githack.com/akabab/superhero-api/0.2.0/api/all.json")
-  .then((response) => response.json())
-  .then(loadData);
-```
-
-- Transform and clean the data as needed
-- Store data in a suitable format for manipulation
-- Handle any missing or malformed data
-
-### 3. Table Creation
-
-Required columns:
-
-- Icon (images.xs)
-- Name (name)
-- Full Name (biography.fullName)
-- Powerstats (powerstats)
-- Race (appearance.race)
-- Gender (appearance.gender)
-- Height (appearance.height)
-- Weight (appearance.weight)
-- Place of Birth (biography.placeOfBirth)
-- Alignment (biography.alignment)
-
-### 4. Pagination Implementation
-
-Features:
-
-- Page size options: 10, 20, 50, 100, all results
-- Default display: 20 results
-- Navigation between pages
-- Dynamic update of results per page
-
-### 5. Sorting System
-
-Requirements:
-
-- Initial sort: name column in ascending order
-- Click handling on all column headers
-- Toggle between ascending/descending
-- Numeric sorting for appropriate columns
-- Handle missing values (always last)
-- Special handling for weight/height strings
-
-### 6. Search Functionality
-
-Features:
-
-- Real-time filtering
-- Search by name
-- Update results as user types
-- Maintain pagination state with filtered results
-
-### 7. Performance Optimization
-
-Techniques:
-
-- Implement debouncing for search
-- Optimize sort algorithms
-- Minimize DOM manipulations
-- Cache frequently accessed elements
-- Use efficient data structures
-
-### 8. Bonus Features
-
-Optional enhancements:
-
-- Multi-field search capability
-- Advanced search operators:
-  - include/exclude
-  - fuzzy search
-  - equal/not equal
-  - greater than/less than
-- Hero detail view
-- URL state management
-- Enhanced UI/UX design
-
-### Testing Checklist
-
-#### Functional Requirements
-
-- [ ] Table displays correct data columns
-- [ ] Pagination works with all page sizes
-- [ ] Sort functions correctly for all columns
-- [ ] Search filters update in real-time
-- [ ] Missing values appear last in sorting
-- [ ] Weight/height sort numerically
-- [ ] Default sort (name, ascending) on load
-
-#### Performance Requirements
-
-- [ ] Quick response to user interactions
-- [ ] Smooth pagination transitions
-- [ ] Efficient search filtering
-- [ ] No unnecessary API calls
-
-#### Bonus Requirements
-
-- [ ] Multi-field search works correctly
-- [ ] Search operators function as expected
-- [ ] Detail view displays correctly
-- [ ] URL updates with state changes
-- [ ] Clean, responsive design
-
-## Code Organization Tips
-
-1. Use Classes
-
-```javascript
-class HeroTable {
-  constructor() {
-    this.data = [];
-    this.currentPage = 1;
-    this.pageSize = 20;
-    this.sortColumn = "name";
-    this.sortDirection = "asc";
-  }
-  // Methods for sorting, filtering, pagination
+async fetchData() {
+  const response = await fetch("https://api.opendota.com/api/heroStats");
+  this.data = await response.json();
+  this.filteredData = [...this.data];
 }
 ```
+The data is stored in two properties:
+- `data`: Original, unaltered dataset.
+- `filteredData`: Modifiable dataset for sorting and filtering.
 
-2. Separate Concerns
+### 3. **Rendering the Table**
+The `render()` method displays the table data dynamically:
+- Determines the subset of data to display based on the current page and page size.
+- Updates the DOM by creating table rows for each hero in the subset.
+- Updates pagination controls.
 
-- Data manipulation functions
-- DOM manipulation functions
-- Event handlers
-- Utility functions
+### 4. **Sorting**
+The `handleSort(column)` method enables sorting:
+- Toggles between ascending (`asc`) and descending (`desc`) order.
+- Sorts the `filteredData` array based on the selected column.
+- Renders the updated table.
 
-3. Performance Considerations
+### 5. **Pagination**
+Pagination is handled dynamically using `updatePaginationControls()`:
+- Calculates the total number of pages.
+- Creates buttons for each page, enabling navigation.
+- Updates the `currentPage` property and re-renders the table on button click.
 
-- Cache DOM elements
-- Use event delegation
-- Implement debouncing for search
-- Optimize sort/filter operations
+---
 
-## Good Practices
+## **File Structure**
+```
+HeroTable/
+├── index.html     # Contains the structure of the webpage.
+├── styles.css     # Handles the styling of the table and controls.
+└── script.js      # Contains the JavaScript logic for the project.
+```
 
-1. Code Style
+---
 
-- Use meaningful variable names
-- Add comments for complex logic
-- Follow consistent formatting
+## **Usage Instructions**
 
-2. Error Handling
+### **Prerequisites**
+- A modern web browser (e.g., Chrome, Firefox).
+- Internet access (to fetch data from the API).
 
-- Validate user inputs
-- Handle API errors gracefully
-- Provide feedback to users
+### **Steps to Run**
+1. Clone or download the project repository.
+2. Open the `index.html` file in your browser.
+3. Interact with the table:
+   - Use the pagination controls to navigate between pages.
+   - Click on column headers to sort data.
+   - (Optional) Use the search bar to filter results (if implemented).
 
-3. Performance
+---
 
-- Minimize DOM updates
-- Use efficient data structures
-- Implement debouncing/throttling
+## **Future Enhancements**
+- **Search Bar**: Add a feature to filter heroes by name or attribute.
+- **Responsive Design**: Improve layout for mobile devices.
+- **Custom API Endpoint**: Allow users to input their own API URL.
 
-4. Maintainability
+---
 
-- Write modular code
-- Document complex functions
-- Use consistent naming conventions
+## **Technologies Used**
+- **HTML**: For the structure of the webpage.
+- **CSS**: For styling the table and controls.
+- **JavaScript**: For dynamic functionality and interactivity.
+- **Fetch API**: For retrieving data from the external API.
 
-## Browser Support
+---
 
-- Ensure compatibility with modern browsers
-- Test on different screen sizes
-- Verify functionality across platforms
+## **Credits**
+- Data provided by [OpenDota API](https://api.opendota.com/api/heroStats).
 
-## Development Process
-
-1. Start with basic functionality
-2. Add features incrementally
-3. Test thoroughly after each addition
-4. Optimize performance
-5. Add bonus features last
-
-Remember: Focus on core functionality first and ensure it works perfectly before moving on to bonus features.
+---
